@@ -1,0 +1,28 @@
+{
+	"ts-node": {
+    "transpileOnly": true
+  },
+	"compilerOptions": {                 
+    "target": "es6",                         
+    "module": "commonjs",                     
+    "sourceMap": true,                                        
+    "outDir": "dist/",                      
+		"strict": true,      
+		"allowJs": true,                   
+    "noImplicitAny": true,                    
+    "moduleResolution": "node",               
+    "esModuleInterop": true,                 
+    "resolveJsonModule": true,                
+    "skipLibCheck": true,                     
+		"forceConsistentCasingInFileNames": true
+	},
+	"files": [
+		"./src/@types/global.d.ts"
+	],
+
+	"include": [
+		"src/**/*.ts",
+		"src/**/*",
+		".env"
+  ]
+}
