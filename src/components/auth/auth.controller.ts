@@ -87,7 +87,7 @@ export const signup = async (Users: any, phone: string, password: string, code: 
 	if (password) newUser.password = password
 	const user = await Users.create(newUser)
 	delete user.password
-	const token = jwt.sign({ ...user._doc }, JWT_TOKEN)
+	const token = jwt.sign({ ...user._doc }, JWT_TOKEN, { algorithm: "HS256" })
 	return { token }
 }
 
@@ -104,7 +104,7 @@ export const login = async (Users: any, phone: string, password: string) => {
 
 	if (!bcrypt.compareSync(password, user.password)) throw { message: "invalid user credentials", code: "BAD_PASS" }
 	delete user.password
-	const token = jwt.sign({ ...user }, JWT_TOKEN)
+	const token = jwt.sign({ ...user }, JWT_TOKEN, { algorithm: "HS256" })
 	return { loggedIn: true, token }
 }
 
@@ -123,7 +123,7 @@ export const otpLogin = async (Users: any, phone: string, hashedCode: string, co
 	if (!Code.verify(hashedCode, code)) throw new Error(erro)
 
 	const user = await Users.findOne({ phone }, Users.PROJECT.TOKEN).lean()
-	const token = jwt.sign({ ...user }, JWT_TOKEN)
+	const token = jwt.sign({ ...user }, JWT_TOKEN, { algorithm: "HS256" })
 	return { token }
 }
 
@@ -156,6 +156,6 @@ export const resetPassword = async (Users: any, phone: string, code: string, pas
 
 	password = bcrypt.hashSync(password, Number(SALTROUNDS))
 	const refreshUser = await Users.findOneAndUpdate({ phone }, { $set: { password } }, { projection: Users.PROJECT.TOKEN }).lean()
-	const token = jwt.sign({ ...refreshUser }, JWT_TOKEN)
+	const token = jwt.sign({ ...refreshUser }, JWT_TOKEN, { algorithm: "HS256" })
 	return { loggedIn: true, token }
 }

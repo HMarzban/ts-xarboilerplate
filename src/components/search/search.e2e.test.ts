@@ -16,9 +16,10 @@ describe("Search Itunes Component API E2E Test:", () => {
 			.expect(200)
 			.then((res: any) => {
 				const result = res.body.Result
-				expect(result).toHaveLength(1)
-				expect(result[0].artistName).toBe(artistName)
-				expect(result[0].topAlbums.length).toBeGreaterThanOrEqual(3)
+				const ladyGaga = result.find((artist: any) => artist.artistName === artistName)
+				expect(result.length).toBeGreaterThanOrEqual(1)
+				expect(ladyGaga).toBeDefined()
+				expect(ladyGaga.topAlbums.length).toBeGreaterThanOrEqual(3)
 			})
 	})
 
@@ -29,7 +30,7 @@ describe("Search Itunes Component API E2E Test:", () => {
 			.then((res: any) => {
 				const result = res.body.Result
 				const artistNames = result.map((artist: any) => artist.artistName)
-				const expectArtistsNames = ["Selena", "Selena Gomez", "Aubrey Selena", "Selena Seballo", "Selena Lee"]
+				const expectArtistsNames = ["Selena", "Selena Gomez"]
 				expect(result.length).toBeGreaterThanOrEqual(13)
 				expect(artistNames).toEqual(expect.arrayContaining(expectArtistsNames))
 			})

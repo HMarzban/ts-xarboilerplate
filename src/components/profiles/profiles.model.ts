@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose"
+import mongoose from "mongoose"
 import * as bcrypt from "bcrypt"
 import { IProfile } from "./interface"
 const { SALTROUNDS } = process.env
@@ -21,7 +21,7 @@ const profilesSchema = new mongoose.Schema(
 )
 
 // Custom Methods and Properties
-profilesSchema.statics.PROJECT = {
+;(profilesSchema.statics as any).PROJECT = {
 	TOKEN: { password: 0 },
 }
 

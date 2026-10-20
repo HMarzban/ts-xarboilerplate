@@ -24,7 +24,7 @@ const searchAlbums = async (artistsId: string): Promise<ISearchAlbums> => {
 	const albumsFilter = albums.results.filter(album => album.collectionType === "Album")
 
 	const albumsId = albumsFilter
-		.map(el => el.collectionId & el.collectionId)
+		.map(el => el.collectionId)
 		.filter(Number)
 		.join(",")
 

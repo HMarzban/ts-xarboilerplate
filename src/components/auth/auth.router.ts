@@ -1,4 +1,4 @@
-import * as mongoose from "mongoose"
+import mongoose from "mongoose"
 const router = require("../../utils").router()
 import * as Auth from "./auth.controller"
 import * as valid from "./auth.validator"
