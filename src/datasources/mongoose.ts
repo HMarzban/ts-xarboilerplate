@@ -3,6 +3,8 @@ import dBugs from "debug"
 import path from "path"
 import findDir from "find"
 
+mongoose.set("strictQuery", false)
+
 interface modelIndex {
 	syncIndexes: () => void
 }
@@ -31,7 +33,7 @@ const ensureIndexes = async (): Promise<boolean> => {
 export const connect = async (mongodbURL?: string): Promise<void> => {
 	try {
 		const URL: any = mongodbURL || MONGODB_URL
-		await mongoose.connect(URL, { useNewUrlParser: true, autoIndex: false, useUnifiedTopology: true, useFindAndModify: false })
+		await mongoose.connect(URL, { autoIndex: false })
 		mongoose.connection.on("error", err => debug("connection/model error =>" + err))
 		await ensureIndexes()
 		debug(`Connected to database on Worker process: ${process.pid}, ${mongodbURL || MONGODB_URL}`)

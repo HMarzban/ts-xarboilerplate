@@ -8,7 +8,7 @@ export const adminAuth = (req: Request, res: Response, next: NextFunction): Next
 	const token = req.headers["x-access-token"] || req.headers.authorization
 	if (token) {
 		try {
-			const decode = jwt.verify(token, JWTtoken)
+			const decode = jwt.verify(token as string, JWTtoken, { algorithms: ["HS256"] })
 			req.local = {}
 			req.local.admin = decode
 			return next()
@@ -24,7 +24,7 @@ export const userAuth = (req: Request, res: Response, next: NextFunction): NextF
 	const userToken = req.headers["x-access-token"] || req.headers.authorization
 	if (userToken) {
 		try {
-			const decode = jwt.verify(userToken, JWTtoken)
+			const decode = jwt.verify(userToken as string, JWTtoken, { algorithms: ["HS256"] })
 			req.local = {}
 			req.local.user = decode
 			return next()

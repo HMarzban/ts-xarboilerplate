@@ -13,8 +13,9 @@
     "moduleResolution": "node",               
     "esModuleInterop": true,                 
     "resolveJsonModule": true,                
-    "skipLibCheck": true,                     
-		"forceConsistentCasingInFileNames": true
+		"skipLibCheck": true,                     
+		"forceConsistentCasingInFileNames": true,
+		"useUnknownInCatchVariables": false
 	},
 	"files": [
 		"./src/@types/global.d.ts"
